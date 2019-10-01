@@ -2,7 +2,6 @@ package ch.hearc.gcapp
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
@@ -14,26 +13,31 @@ class MainActivity : AppCompatActivity() {
      *
      * Do not use any constructor.
      */
+    private lateinit var btnAdd :Button
+    private lateinit var adapter : ArrayAdapter<String>
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // TODO Add a search field, a list of strings and an "add" button in res/layout/activity_main.xml
+        //INIT
+        btnAdd = findViewById(R.id.btnAdd)
+        val cities = mutableListOf("Neuchâtel")
 
-        // TODO Add a random string inside the list when clicking (tapping) the button
 
-        // TODO Filter the list of strings when changing the text inside the search field
-
-        var counter = 0
-
-        val adapter = ArrayAdapter(this, R.layout.listview_item, city);
+        adapter = ArrayAdapter(this, R.layout.listview_item, cities)
         val listView: ListView = findViewById(R.id.lstView)
         listView.setAdapter(adapter)
+        btnAdd.isClickable = false
 
-        val btnAdd = findViewById(R.id.btnAdd) as Button
-        btnAdd.setOnClickListener{
-            adapter.add("Bonjour"+counter++)
-        }
+        initEvent()
+
+    }
+
+    fun initEvent() {
+        var counter = 0
+        btnAdd.setOnClickListener{adapter.add("Bonjour ${counter++}")}
     }
 
     companion object {
